@@ -1,0 +1,6 @@
+@Track2GrowProject_HostAddress = http://localhost:5280
+
+GET {{Track2GrowProject_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
