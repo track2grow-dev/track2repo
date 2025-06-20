@@ -1,4 +1,4 @@
-﻿namespace Track2Grow.API.Models.Entities
+﻿namespace Track2GrowProject.API.Models.Entities
 {
     public class User
     {
@@ -7,6 +7,7 @@
         public string Email { get; set; }
         public string PasswordHash { get; set; }
         public string Role { get; set; } // Admin, TeamLead, Employee, Viewer
+        public bool IsArchived { get; set; } = false;
         public Guid? ManagerId { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 

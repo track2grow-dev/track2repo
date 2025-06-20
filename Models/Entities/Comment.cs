@@ -1,4 +1,4 @@
-﻿namespace Track2Grow.API.Models.Entities
+﻿namespace Track2GrowProject.API.Models.Entities
 {
     public class Comment
     {

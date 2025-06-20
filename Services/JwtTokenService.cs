@@ -1,18 +1,14 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+using Track2GrowProject.API.Models.Entities;
+using Microsoft.Extensions.Options;
+using Track2GrowProject.Interfaces;
 using System.Security.Claims;
+using Track2GrowProject.API.Models;
 using System.Text;
-using Track2Grow.API.Models;
-using Track2Grow.API.Models.Entities;
 
-namespace Track2Grow.API.Services
+namespace Track2GrowProject.API.Services
 {
-    public interface IJwtTokenService
-    {
-        string GenerateToken(User user);
-    }
-
     public class JwtTokenService : IJwtTokenService
     {
         private readonly JwtSettings _jwtSettings;

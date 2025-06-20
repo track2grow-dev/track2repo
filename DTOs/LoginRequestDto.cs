@@ -1,4 +1,4 @@
-﻿namespace Track2Grow.API.DTOs
+﻿namespace Track2GrowProject.API.DTOs
 {
     public class LoginRequestDto
     {

@@ -1,4 +1,4 @@
-﻿namespace Track2Grow.API.Models
+﻿namespace Track2GrowProject.API.Models
 {
     public class JwtSettings
     {

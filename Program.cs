@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
+using Track2GrowProject.Interfaces;
+using Track2GrowProject.API.Interfaces;
+using Track2GrowProject.API.Services;
+using Track2GrowProject.API.Models;
+using Track2GrowProject.API.Data;
 using System.Text;
-using Track2Grow.API.Data;
-using Track2Grow.API.Models;
-using Track2Grow.API.Services; // Your DbContext namespace
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +40,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 
 
 var app = builder.Build();

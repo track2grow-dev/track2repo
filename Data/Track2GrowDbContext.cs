@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Track2Grow.API.Models.Entities;
+using Track2GrowProject.API.Models.Entities;
 
-namespace Track2Grow.API.Data
+namespace Track2GrowProject.API.Data
 {
     public class Track2GrowDbContext : DbContext
     {
