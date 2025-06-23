@@ -18,15 +18,15 @@ namespace Track2Grow.API.Controllers
         }
 
         // POST: api/user/create
-        [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto dto)
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateUser([FromBody] UserDto dto)
         {
             var user = await _userService.CreateUserAsync(dto);
             return Ok(user);
         }
 
         // GET: api/user/all
-        [HttpGet]
+        [HttpGet("getAll")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userService.GetAllUsersAsync();
@@ -34,27 +34,35 @@ namespace Track2Grow.API.Controllers
         }
 
         // GET: api/user/{id}
-        [HttpGet("{id}")]
+        [HttpGet("get/{id}")]
         public async Task<IActionResult> GetUserById(Guid id)
         {
-            // You can implement GetUserByIdAsync() in service if needed
-            return Ok(); // placeholder
+            var user = await _userService.GetUserAsync(id);
+            return Ok(user);
         }
 
         // PUT: api/user/update/{id}
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] CreateUserDto dto)
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] UserDto dto)
         {
-            // Call _userService.UpdateUserAsync(id, dto);
+            var user = await _userService.UpdateUserAsync(id, dto);
             return Ok(); // placeholder
         }
 
         // DELETE: api/user/delete/{id}
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
-            // Call _userService.DeleteUserAsync(id);
-            return Ok(); // placeholder
+            var user = await _userService.ArchiveUserAsync(id);
+            return Ok(user);
+        }
+
+        // RESTORE: api/user/restore/{id}
+        [HttpPut("restore/{id}")]
+        public async Task<IActionResult> RestoreUser(Guid id)
+        {
+            var user = await _userService.UnarchiveUserAsync(id);
+            return Ok(user);
         }
     }
 }

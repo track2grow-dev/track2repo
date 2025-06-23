@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Security.Cryptography;
 using System.Text;
 using Track2GrowProject.API.Data;
@@ -19,9 +21,9 @@ namespace Track2GrowProject.API.Services
             _context = context;
         }
 
-        public async Task<User> CreateUserAsync(CreateUserDto dto)
+        public async Task<User> CreateUserAsync(UserDto dto)
         {
-            if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
+            if (await _context.Users.AnyAsync(u => u.Email.ToLower().Trim() == dto.Email.ToLower().Trim()))
             {
                 throw new Exception("User already exists");
             }
@@ -40,9 +42,62 @@ namespace Track2GrowProject.API.Services
             return user;
         }
 
+        public async Task<User> UpdateUserAsync(Guid id, UserDto dto)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            user.Name = dto.Name;
+            user.Email = dto.Email;
+            user.PasswordHash = SecurityHelper.Hash(dto.Password);
+            user.Role = dto.Role;
+            user.ManagerId = dto.ManagerId;
+
+            await _context.SaveChangesAsync();
+            return user;
+        }
+
+
         public async Task<List<User>> GetAllUsersAsync()
         {
             return await _context.Users.Where(u => !u.IsArchived).ToListAsync();
+        }
+
+        public async Task<User> GetUserAsync(Guid id)
+        {
+            return await _context.Users.FindAsync(id);
+        }
+
+        public async Task<bool> ArchiveUserAsync(Guid id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null) return false;
+
+            if (!user.IsArchived)
+            {
+                user.IsArchived = true;
+                await _context.SaveChangesAsync();
+            }
+
+            return true;
+        }
+
+
+        public async Task<bool> UnarchiveUserAsync(Guid id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            if (user == null) return false;
+
+            if (!user.IsArchived)
+            {
+                user.IsArchived = false;
+                await _context.SaveChangesAsync();
+            }
+
+            return true;
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace Track2GrowProject.API.DTOs
 {
-    public class CreateUserDto
+    public class UserDto
     {
         public string Name { get; set; }
         public string Email { get; set; }
